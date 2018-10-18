@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>Dentist Clinic</title>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	html, body {
+		font: 13pt/18pt "나눔고딕","맑은 고딕";
+	}
+
+
+	/* block-line level을 이렇게 설정하면 안보인다. */
+	h1, h2 {
+		width: 0;
+		height: 0;
+		overflow: hidden; /* 내가 설정한 width, height 밖으로 나오지 말라는 의미 */
+		position: absolute;
+		}
+
+	header {
+		width: 1000px;
+		height: 171px;
+		margin: 0 auto;
+		z-index: -1;
+		background-color: #ebebeb;
+		padding-top: 30px;
+		border-radius: 0 0 20px 20px;
+		box-shadow: 0 -10px 10px black;
+	}
+
+
+
+
+	/* 상단 파란 줄 */     /* 원래는 #top_menu에 걸려있었다. #top_menu 위에 div를 하나 더 만들어주고 거기에 적용시킴. */
+	header>div:first-child {
+		/*border: 1px solid red;*/
+		height: 32px;
+		width: 100%;
+		background-color: #70a4d6;
+		z-index: 0;
+		left: 0;
+		top: 0;
+		position: absolute;
+	}
+
+
+	/*
+	 1) z-index는 layer 같은 요소다.
+	 2) width 값을 지정해주지 않았으니 원래는 100%다.
+		그러나 부모영역 header의 width값이 지정되어 있으므로
+		header의 width값을 따른다.
+	*/
+
+	/* 치과소개 , 즐겨찾기, 사이트맵 */
+	#top_menu {
+		/* border: 1px solid blue; */
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	#top_menu ul {
+		list-style: none;
+		/* border: 1px solid red; */
+		/* float: right; */
+		width: 250px;
+		display: flex;					/* 개별 항목의 부모에 적용 */
+		justify-content: space-between;
+		align-items: center;
+		margin-right: 10px;
+		position: absolute;
+		top: 2px;
+	}
+
+	/* 치과소개, 즐겨찾기 옆의 구분선 */
+	#top_menu li:nth-child(1)::after,
+	#top_menu li:nth-child(2)::after {
+		content:"|";
+		padding-left: 20px;
+		color: white;
+		font-size: 0.5rem;
+	}
+
+	/* 병원소개, 즐겨찾기, 사이트맵의 링크 */
+	#top_menu a {
+		color: white;
+		text-decoration: none;
+		font-size: 0.8rem;
+	}
+
+	#top_menu a:hover {
+		border-bottom: 1px solid white;
+		/*text-decoration: underline;   이 코드로도 가능하다.*/
+	}
+
+
+	/* 상단 로고, 로긴/회원가입, 검색창 */
+	header>section:first-of-type {
+		/* border: 1px solid red; */
+		padding: 20px;
+		display: flex;
+		justify-content: space-between;
+		/* clear: right; 위에 float가 영향을 줄 때 사용 */
+	}
+
+	header>section:first-of-type>a {
+		/* border: 1px solid red; */
+	}
+
+	header>section:first-of-type>div {
+		/* border: 1px solid red; */
+		display: flex;
+		justify-content: space-between;
+	}
+
+	/* 로긴, 회원가입 버튼 */
+	header>section:first-of-type>div>button {
+		width: 70px;
+		height: 24px;
+		border: none;
+		color: white;
+		letter-spacing: -2px; /* 자간 */
+		text-shadow: 0 0 2px #2c4688;
+	}
+
+	/* 로그인 버튼 */
+	#login {
+		background: linear-gradient(#ccd9fe 25%, #8099dd);
+		border-radius: 0 10px;
+	}
+
+	/* button 의 부모요소는 section이다. section의 자식들 중 2번째라는 의미로 숫자(2)다.
+		:nth-child(2)
+			다른 방식으로 이렇게 적을 수도 있다.
+		:first-child (자식요소들 중 첫번째다.)
+		:first-of-type (자기와 같은 요소들 중에서는 첫번째 자식이다)
+	*/
+
+
+	/* 회원가입 버튼 */
+	#join {
+		background-color: #1d2948;
+		border-radius: 10px 0;
+	}
+
+	/* 검색창. 아래 선택자는 html 속성 선택자이다.*/
+	[type="search"] {
+		margin-left: 10px;
+		padding: 5px;
+		width: 170px;
+		height: 25px;
+		font-size: 15px;
+		border: 1px solid #ddd;
+		border-radius: 7px;
+		box-shadow: 0 0 10px #ddd inset;
+		color: #3666b5;
+		background: url("images/lens.png") no-repeat 145px center;
+	}
+
+
+	/* 상단메뉴와 온라인상담 버튼*/
+	header>section:last-child {
+		/* border: 1px solid red; */
+		display: flex;
+		justify-content: space-between;
+		padding: 30px;
+	}
+
+	/* 상단 메뉴 */
+	header nav {
+			/* border: 1px solid red; */
+		flex-grow: 4;
+			/* flex-grow는 비율임.
+			부모의 크기를 다 사용하겠다는 것에서 출발한다. 그래서 1은 온전한 100%를 의미.  */
+		display: flex;
+			/* padding-top: 30px; */
+		justify-content: space-around;
+	}
+
+	header nav a {
+		text-decoration: none;
+		color: #6d6d6d;
+		font-weight: bold;
+	}
+
+	header nav a:hover {
+		color: #7690da;
+	}
+
+	/* 온라인상담 버튼 */
+	nav+button {
+		flex-grow: 1;
+		margin-left: 30px;
+		margin-right: 20px;
+		line-height: 23px;
+		border-radius: 25px;
+		border: 3px solid #0056bb;
+		background: linear-gradient(#b0beed 25%, #6f8dd6);
+		color: white;
+		font-weight: bold;
+		padding: 3px;
+	}
+	/* 중앙, 하단 */
+
+
+
+	/* 메인 */
+	main {
+		width: 1000px;
+		height: 562px;
+		background-color: gray;
+		margin: 0 auto;
+	}
+
+	/* 하단 */
+	footer {
+		width: 1000px;
+		height: 167px;
+		background-color: pink;
+		margin: 0 auto;
+	}
+
+
+	</style>
+</head>
+
+<body>
+	<h1>Dentist Clinic</h1>
+		<header>
+			<div>
+
+			</div>
+			<div id="top_menu">
+				<ul>
+					<li><a href="#">치과소개</a></li>
+					<li><a href="#">즐겨찾기</a></li>
+					<li><a href="#">사이트맵</a></li>
+				</ul>
+			</div>
+			<section>
+				<h2>로고와 로그인/회원가입과 검색</h2>
+				<a href="index.html"><img src="images/logo.png" alt="dentist logo"></a>
+				<div>
+					<button id="login">로그인</button>
+					<button id="join">회원가입</button>
+					<input type="search">
+				</div>
+			</section>
+			<section>
+				<nav>
+					<a href="#">병원소개</a>
+					<a href="#">교정&미백</a>
+					<a href="#">일반진료</a>
+					<a href="#">고객후기</a>
+					<a href="#">진료예약</a>
+				</nav>
+				<button>온라인상담</button>
+			</section>
+		</header>
+		<div class="main_footer">
+			<main>
+				<img src="images/left_.jpg" alt="left image"><img src="images/center_.jpg" alt="center image"><img src="images/right_.png" alt="right image">
+			</main>
+			<footer>
+				<img src="images/footer_.png" alt="footer image">
+			</footer>
+		</div>
+</body>
+</html>
